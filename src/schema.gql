@@ -1,0 +1,54 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Comment {
+  id: Int!
+  author_id: Int!
+  post_id: Int!
+  text: String!
+  additional_file_path: String!
+  post: Post!
+  author: User!
+}
+
+type Post {
+  id: Int!
+  title: String!
+  description: String!
+  image_path: String!
+  author_id: Int!
+  author: User!
+  comments: [Comment!]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  id: Int!
+  username: String!
+  password: String!
+  avatar_path: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  posts: [Post!]!
+  comments: [Comment!]!
+}
+
+type Query {
+  getUsers: [User!]!
+}
+
+type Mutation {
+  login(loginDto: LoginDto!): String!
+}
+
+input LoginDto {
+  username: String!
+  password: String!
+}
