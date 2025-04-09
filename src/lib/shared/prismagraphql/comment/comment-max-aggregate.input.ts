@@ -18,4 +18,13 @@ export class CommentMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     additional_file_path?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    reply_to_comment_id?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
 }

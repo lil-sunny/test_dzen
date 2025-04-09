@@ -13,4 +13,7 @@ export class CommentSumOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     post_id?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    reply_to_comment_id?: `${SortOrder}`;
 }

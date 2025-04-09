@@ -19,6 +19,9 @@ export class Comment {
   @Field()
   additional_file_path: string;
 
+  @Field(() => Int)
+  reply_to_comment_id: number;
+
   @Field(() => Post)
   post: Post;
 

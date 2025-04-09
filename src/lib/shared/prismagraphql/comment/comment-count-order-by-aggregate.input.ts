@@ -19,4 +19,13 @@ export class CommentCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     additional_file_path?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    reply_to_comment_id?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    createdAt?: `${SortOrder}`;
+
+    @Field(() => SortOrder, {nullable:true})
+    updatedAt?: `${SortOrder}`;
 }

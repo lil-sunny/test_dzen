@@ -13,4 +13,7 @@ export class CommentSumAggregate {
 
     @Field(() => Int, {nullable:true})
     post_id?: number;
+
+    @Field(() => Int, {nullable:true})
+    reply_to_comment_id?: number;
 }

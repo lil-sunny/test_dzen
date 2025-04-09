@@ -13,4 +13,7 @@ export class CommentAvgAggregate {
 
     @Field(() => Float, {nullable:true})
     post_id?: number;
+
+    @Field(() => Float, {nullable:true})
+    reply_to_comment_id?: number;
 }

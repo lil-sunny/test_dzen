@@ -20,5 +20,14 @@ export class CommentCountAggregateInput {
     additional_file_path?: true;
 
     @Field(() => Boolean, {nullable:true})
+    reply_to_comment_id?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    createdAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    updatedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
     _all?: true;
 }

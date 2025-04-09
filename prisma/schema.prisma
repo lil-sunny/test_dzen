@@ -48,7 +48,12 @@ model Comment {
   author_id     Int
   post_id       Int
   text          String
-  additional_file_path String
+  additional_file_path String?
+  reply_to_comment_id Int?
+  replyTo       Comment?  @relation("CommentReplies", fields: [reply_to_comment_id], references: [id])
+  replies       Comment[] @relation("CommentReplies")
   post  Post  @relation(fields: [post_id], references: [id])
   author User @relation(fields: [author_id], references: [id])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @default(now())
 }

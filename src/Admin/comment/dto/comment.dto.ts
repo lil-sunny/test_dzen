@@ -1,13 +1,20 @@
 import { Field, InputType } from '@nestjs/graphql';
+import { FileUpload } from 'graphql-upload';
 
 @InputType()
 export class CommentDto {
   @Field()
-  title: string;
+  author_id: number;
 
   @Field()
-  description: string;
+  post_id: number;
 
   @Field()
-  image_path: string;
+  text: string;
+
+  @Field()
+  reply_to_comment_id: number;
+
+  @Field(() => String, { nullable: true })
+  file?: FileUpload;
 }

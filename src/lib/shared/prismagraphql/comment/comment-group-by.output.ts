@@ -22,8 +22,17 @@ export class CommentGroupBy {
     @Field(() => String, {nullable:false})
     text!: string;
 
-    @Field(() => String, {nullable:false})
-    additional_file_path!: string;
+    @Field(() => String, {nullable:true})
+    additional_file_path?: string;
+
+    @Field(() => Int, {nullable:true})
+    reply_to_comment_id?: number;
+
+    @Field(() => Date, {nullable:false})
+    createdAt!: Date | string;
+
+    @Field(() => Date, {nullable:false})
+    updatedAt!: Date | string;
 
     @Field(() => CommentCountAggregate, {nullable:true})
     _count?: CommentCountAggregate;

@@ -6,10 +6,14 @@ import { AuthController } from './auth/auth.controller';
 import { AuthService } from './auth/auth.service';
 import { PrismaService } from './lib/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
-import { join } from 'path';
+
+import { CommentModule } from './Admin/comment/comment.module';
+import { CommentController } from './Admin/comment/comment.controller';
+import { CommentService } from './Admin/comment/comment.service';
 
 @Module({
   imports: [
+    CommentModule,
     AuthModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -17,7 +21,7 @@ import { join } from 'path';
       sortSchema: true,
     }),
   ],
-  controllers: [AuthController],
-  providers: [AuthService, PrismaService, JwtService],
+  controllers: [AuthController, CommentController],
+  providers: [AuthService, PrismaService, JwtService, CommentService],
 })
 export class AppModule {}

@@ -21,5 +21,14 @@ export class CommentCountAggregate {
     additional_file_path!: number;
 
     @Field(() => Int, {nullable:false})
+    reply_to_comment_id!: number;
+
+    @Field(() => Int, {nullable:false})
+    createdAt!: number;
+
+    @Field(() => Int, {nullable:false})
+    updatedAt!: number;
+
+    @Field(() => Int, {nullable:false})
     _all!: number;
 }

@@ -1,10 +1,10 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { AuthService } from './comment.service';
+import { CommentService } from './comment.service';
 import { CommentDto } from './dto/comment.dto';
 
 @Controller('auth')
-export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+export class CommentController {
+  constructor(private readonly commentService: CommentService) {}
 
   @Post()
   async addComment(@Body() commentDto: CommentDto) {

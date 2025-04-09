@@ -12,4 +12,7 @@ export class CommentAvgAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     post_id?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    reply_to_comment_id?: true;
 }
