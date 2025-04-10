@@ -1,4 +1,4 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { Field, InputType, Int } from '@nestjs/graphql';
 import { FileUpload } from 'graphql-upload';
 
 @InputType()
@@ -12,7 +12,7 @@ export class CommentDto {
   @Field()
   text: string;
 
-  @Field()
+  @Field(() => Int, { nullable: true })
   reply_to_comment_id: number;
 
   @Field(() => String, { nullable: true })

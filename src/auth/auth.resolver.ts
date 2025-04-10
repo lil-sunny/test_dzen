@@ -12,7 +12,7 @@ export class AuthResolver {
     return this.authService.findAll();
   }
 
-  @Mutation(() => String) // Повертаємо string, це буде JWT токен
+  @Mutation(() => String)
   async login(@Args('loginDto') loginDto: LoginDto) {
     const result = await this.authService.login(loginDto);
     return result.access_token;
