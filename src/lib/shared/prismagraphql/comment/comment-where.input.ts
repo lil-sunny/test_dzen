@@ -56,5 +56,5 @@ export class CommentWhereInput {
     post?: PostScalarRelationFilter;
 
     @Field(() => UserScalarRelationFilter, {nullable:true})
-    author?: UserScalarRelationFilter;
+    user?: UserScalarRelationFilter;
 }

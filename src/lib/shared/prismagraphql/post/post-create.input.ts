@@ -22,7 +22,7 @@ export class PostCreateInput {
     updatedAt?: Date | string;
 
     @Field(() => UserCreateNestedOneWithoutPostsInput, {nullable:false})
-    author!: UserCreateNestedOneWithoutPostsInput;
+    user!: UserCreateNestedOneWithoutPostsInput;
 
     @Field(() => CommentCreateNestedManyWithoutPostInput, {nullable:true})
     comments?: CommentCreateNestedManyWithoutPostInput;

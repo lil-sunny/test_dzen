@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { PostUncheckedCreateNestedManyWithoutAuthorInput } from '../post/post-unchecked-create-nested-many-without-author.input';
+import { PostUncheckedCreateNestedManyWithoutUserInput } from '../post/post-unchecked-create-nested-many-without-user.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutCommentsInput {
@@ -24,6 +24,6 @@ export class UserUncheckedCreateWithoutCommentsInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => PostUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
-    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    @Field(() => PostUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    posts?: PostUncheckedCreateNestedManyWithoutUserInput;
 }

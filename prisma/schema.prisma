@@ -37,7 +37,7 @@ model Post {
   description   String
   image_path    String
   author_id     Int
-  author        User      @relation(fields: [author_id], references: [id])
+  user        User      @relation(fields: [author_id], references: [id])
   comments      Comment[] 
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @default(now())
@@ -53,7 +53,7 @@ model Comment {
   replyTo       Comment?  @relation("CommentReplies", fields: [reply_to_comment_id], references: [id])
   replies       Comment[] @relation("CommentReplies")
   post  Post  @relation(fields: [post_id], references: [id])
-  author User @relation(fields: [author_id], references: [id])
+  user User @relation(fields: [author_id], references: [id])
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @default(now())
 }

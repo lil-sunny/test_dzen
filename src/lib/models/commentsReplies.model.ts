@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Comment } from './comment.model';
+import { User } from './user.model';
 
 @ObjectType()
 export class CommentsReplies {
@@ -8,6 +9,9 @@ export class CommentsReplies {
 
   @Field(() => Int)
   post_id: number;
+
+  @Field(() => Int)
+  author_id: number;
 
   @Field(() => Int, { nullable: true })
   reply_to_comment_id: number | null;
@@ -25,5 +29,8 @@ export class CommentsReplies {
   additional_file_path: string;
 
   @Field(() => [Comment], { nullable: true })
-  replies?: Comment[];
+  replies?: CommentsReplies[];
+
+  @Field(() => User, { nullable: true })
+  user: User;
 }

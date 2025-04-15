@@ -3,7 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { CommentUncheckedUpdateManyWithoutAuthorNestedInput } from '../comment/comment-unchecked-update-many-without-author-nested.input';
+import { CommentUncheckedUpdateManyWithoutUserNestedInput } from '../comment/comment-unchecked-update-many-without-user-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutPostsInput {
@@ -26,6 +26,6 @@ export class UserUncheckedUpdateWithoutPostsInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => CommentUncheckedUpdateManyWithoutAuthorNestedInput, {nullable:true})
-    comments?: CommentUncheckedUpdateManyWithoutAuthorNestedInput;
+    @Field(() => CommentUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    comments?: CommentUncheckedUpdateManyWithoutUserNestedInput;
 }

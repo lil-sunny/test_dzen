@@ -1,6 +1,4 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Post } from './post.model';
-import { Comment } from './comment.model';
 
 @ObjectType()
 export class User {
@@ -21,10 +19,4 @@ export class User {
 
   @Field()
   updatedAt: Date;
-
-  @Field(() => [Post]) // Вказуємо, що це масив постів
-  posts: Post[];
-
-  @Field(() => [Comment]) // Вказуємо, що це масив коментарів
-  comments: Comment[];
 }

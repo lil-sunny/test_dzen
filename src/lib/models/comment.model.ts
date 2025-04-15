@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { GraphQLUpload, FileUpload } from 'graphql-upload';
 // import { Post } from './post.model';
-// import { User } from './user.model';
+import { User } from './user.model';
 
 @ObjectType()
 export class Comment {
@@ -16,17 +17,17 @@ export class Comment {
   @Field()
   text: string;
 
-  @Field()
-  additional_file_path: string;
+  @Field(() => String, { nullable: true })
+  additional_file_path: string | null;
 
   @Field(() => Int, { nullable: true })
   reply_to_comment_id: number | null;
 
-  // @Field(() => Post)
-  // post: Post;
+  @Field(() => User, { nullable: true })
+  user: User | null;
 
-  // @Field(() => User)
-  // author: User;
+  @Field(() => GraphQLUpload, { nullable: true })
+  file?: Promise<FileUpload>;
 
   @Field()
   createdAt: Date;

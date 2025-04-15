@@ -23,5 +23,5 @@ export class PostUpdateWithoutCommentsInput {
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
     @Field(() => UserUpdateOneRequiredWithoutPostsNestedInput, {nullable:true})
-    author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    user?: UserUpdateOneRequiredWithoutPostsNestedInput;
 }

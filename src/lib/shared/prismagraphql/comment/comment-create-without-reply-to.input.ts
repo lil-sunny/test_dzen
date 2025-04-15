@@ -26,5 +26,5 @@ export class CommentCreateWithoutReplyToInput {
     post!: PostCreateNestedOneWithoutCommentsInput;
 
     @Field(() => UserCreateNestedOneWithoutCommentsInput, {nullable:false})
-    author!: UserCreateNestedOneWithoutCommentsInput;
+    user!: UserCreateNestedOneWithoutCommentsInput;
 }

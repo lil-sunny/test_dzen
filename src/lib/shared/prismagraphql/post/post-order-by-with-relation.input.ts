@@ -30,7 +30,7 @@ export class PostOrderByWithRelationInput {
     updatedAt?: `${SortOrder}`;
 
     @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    author?: UserOrderByWithRelationInput;
+    user?: UserOrderByWithRelationInput;
 
     @Field(() => CommentOrderByRelationAggregateInput, {nullable:true})
     comments?: CommentOrderByRelationAggregateInput;

@@ -46,7 +46,6 @@ export class AuthService {
       throw new HttpException('User already exists', HttpStatus.CONFLICT);
     }
 
-    // Перевіримо пароль
     const cryptPassword = await bcrypt.hash(password, 10);
 
     const newUser = await this.prisma.user.create({
@@ -57,8 +56,8 @@ export class AuthService {
           'https://abrakadabra.fun/uploads/posts/2021-12/1640528661_1-abrakadabra-fun-p-serii-chelovek-na-avu-1.png',
       },
     });
-    // Генеруємо токен
-    const payload = { username: newUser.username, sub: newUser.id };
+
+    const payload = { username: newUser.username, user_id: newUser.id };
     const token = this.jwtService.sign(payload);
 
     return { access_token: token };

@@ -2,18 +2,19 @@ import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { CommentDto } from './dto/comment.dto';
 import { FileUpload } from 'graphql-upload';
-import { createWriteStream } from 'fs';
-import fs from 'fs';
-import { join } from 'path';
+import { User } from 'src/lib/models/user.model';
+import { Comment } from '../../lib/models/comment.model';
 
 export interface CommentInterface {
   id: number;
   post_id: number;
   reply_to_comment_id: number | null;
   text: string;
+  author_id: number;
   createdAt: Date;
   updatedAt: Date;
   additional_file_path: string | null;
+  user?: User;
   replies: CommentInterface[];
 }
 
@@ -31,24 +32,62 @@ export class CommentService {
       },
     });
 
-    const commentsMap = new Map<number, CommentInterface>(); // Використовуємо CommentInterface замість Comment
-    const result: CommentInterface[] = [];
+    const authorIds: number[] = [];
 
     comments.forEach((comment) => {
-      commentsMap.set(comment.id, { ...comment, replies: [] });
+      if (!authorIds.includes(comment.author_id)) {
+        authorIds.push(comment.author_id);
+      }
+    });
+
+    const users = await this.prisma.user.findMany({
+      where: { id: { in: authorIds } },
+    });
+
+    const usersMap = new Map<number, User>();
+    users.forEach((user) => usersMap.set(Number(user.id), user));
+
+    const commentsMap = new Map<number, CommentInterface & { user?: User }>();
+    const result: (CommentInterface & { user?: User })[] = [];
+
+    comments.forEach((comment) => {
+      commentsMap.set(comment.id, {
+        ...comment,
+        replies: [],
+        user: usersMap.get(Number(comment.author_id)),
+      });
     });
 
     comments.forEach((comment) => {
+      const currentComment = commentsMap.get(comment.id)!;
+
       if (comment.reply_to_comment_id) {
-        const parentComment = commentsMap.get(comment.reply_to_comment_id);
-        if (parentComment) {
-          parentComment.replies.push(commentsMap.get(comment.id)!);
+        const parent = commentsMap.get(comment.reply_to_comment_id);
+        if (parent) {
+          parent.replies.push({
+            ...currentComment,
+            user: usersMap.get(currentComment.author_id),
+          });
         } else {
           comment.reply_to_comment_id = null;
+          result.push(currentComment);
         }
       } else {
-        result.push(commentsMap.get(comment.id)!);
+        result.push(currentComment);
       }
+    });
+
+    return result;
+  }
+
+  async getComment(comment_id: number): Promise<Comment | null> {
+    const result = await this.prisma.comment.findFirst({
+      where: {
+        id: comment_id,
+      },
+      include: {
+        user: true,
+      },
     });
 
     return result;
@@ -56,18 +95,48 @@ export class CommentService {
 
   async addComment(data: CommentDto) {
     const { text, author_id, post_id, file, reply_to_comment_id } = data;
+    console.log(data);
 
-    let additional_file_path = '';
+    const additional_file_path = '';
 
     if (file) {
       try {
-        const newFileName = this.generateUniqueFileName(file.filename);
-        file.filename = newFileName;
-        additional_file_path = await this.saveFile(file);
+        const uploadedFile = await file;
+
+        console.log(uploadedFile.filename);
+
+        const newFileName = this.generateUniqueFileName(uploadedFile.filename);
+        uploadedFile.filename = newFileName;
+        // additional_file_path = await this.saveFile(uploadedFile);
       } catch (error) {
         console.log(error);
         throw new HttpException('File upload failed', HttpStatus.BAD_REQUEST);
       }
+    }
+
+    let replyId: number | null = null;
+
+    if (reply_to_comment_id !== undefined && reply_to_comment_id !== null) {
+      const id = Number(reply_to_comment_id);
+      if (isNaN(id)) {
+        throw new HttpException(
+          'Invalid reply_to_comment_id',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const parentComment = await this.prisma.comment.findUnique({
+        where: { id },
+      });
+
+      if (!parentComment) {
+        throw new HttpException(
+          'Comment to reply not found',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      replyId = id;
     }
 
     const comment = await this.prisma.comment.create({
@@ -76,39 +145,18 @@ export class CommentService {
         author_id,
         post_id,
         additional_file_path,
-        reply_to_comment_id,
+        reply_to_comment_id: replyId,
+      },
+      include: {
+        user: true,
       },
     });
 
     return comment;
   }
 
-  async saveFile(file: FileUpload): Promise<string> {
-    await this.validateFile(file);
-
-    const { filename } = file;
-    const stream = file.createReadStream();
-
-    const uploadDir = './uploads';
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-    }
-
-    const filePath = join(uploadDir, `${Date.now()}-${filename}`);
-
-    const writeStream = createWriteStream(filePath);
-
-    await new Promise<void>((resolve, reject) => {
-      stream
-        .pipe(writeStream)
-        .on('finish', () => resolve())
-        .on('error', (err) => {
-          console.error('Error writing file:', err);
-          reject(err);
-        });
-    });
-
-    return filePath;
+  saveFile(file: FileUpload, commentId: number) {
+    console.log(file.filename, commentId);
   }
 
   generateUniqueFileName(filename: string): string {

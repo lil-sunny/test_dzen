@@ -58,5 +58,5 @@ export class CommentWhereUniqueInput {
     post?: PostScalarRelationFilter;
 
     @Field(() => UserScalarRelationFilter, {nullable:true})
-    author?: UserScalarRelationFilter;
+    user?: UserScalarRelationFilter;
 }

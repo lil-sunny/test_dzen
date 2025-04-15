@@ -24,7 +24,7 @@ export class PostUpdateInput {
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
     @Field(() => UserUpdateOneRequiredWithoutPostsNestedInput, {nullable:true})
-    author?: UserUpdateOneRequiredWithoutPostsNestedInput;
+    user?: UserUpdateOneRequiredWithoutPostsNestedInput;
 
     @Field(() => CommentUpdateManyWithoutPostNestedInput, {nullable:true})
     comments?: CommentUpdateManyWithoutPostNestedInput;

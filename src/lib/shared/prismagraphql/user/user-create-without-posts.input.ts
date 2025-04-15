@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { CommentCreateNestedManyWithoutAuthorInput } from '../comment/comment-create-nested-many-without-author.input';
+import { CommentCreateNestedManyWithoutUserInput } from '../comment/comment-create-nested-many-without-user.input';
 
 @InputType()
 export class UserCreateWithoutPostsInput {
@@ -20,6 +20,6 @@ export class UserCreateWithoutPostsInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => CommentCreateNestedManyWithoutAuthorInput, {nullable:true})
-    comments?: CommentCreateNestedManyWithoutAuthorInput;
+    @Field(() => CommentCreateNestedManyWithoutUserInput, {nullable:true})
+    comments?: CommentCreateNestedManyWithoutUserInput;
 }

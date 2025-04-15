@@ -8,7 +8,7 @@ import { JwtStrategy } from './jwt.strategy'; // Стратегія для ва�
 @Module({
   imports: [
     JwtModule.register({
-      secret: 'your-secret-key', // Секретний ключ для генерації JWT
+      secret: process.env.JWT_SECRET, // Секретний ключ для генерації JWT
       signOptions: { expiresIn: '1h' }, // Термін дії токену
     }),
   ],

@@ -40,7 +40,7 @@ export class PostWhereInput {
     updatedAt?: DateTimeFilter;
 
     @Field(() => UserScalarRelationFilter, {nullable:true})
-    author?: UserScalarRelationFilter;
+    user?: UserScalarRelationFilter;
 
     @Field(() => CommentListRelationFilter, {nullable:true})
     comments?: CommentListRelationFilter;

@@ -44,7 +44,7 @@ export class CommentOrderByWithRelationInput {
     post?: PostOrderByWithRelationInput;
 
     @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    author?: UserOrderByWithRelationInput;
+    user?: UserOrderByWithRelationInput;
 
     @Field(() => CommentOrderByRelevanceInput, {nullable:true})
     _relevance?: CommentOrderByRelevanceInput;

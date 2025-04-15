@@ -21,5 +21,5 @@ export class PostCreateWithoutCommentsInput {
     updatedAt?: Date | string;
 
     @Field(() => UserCreateNestedOneWithoutPostsInput, {nullable:false})
-    author!: UserCreateNestedOneWithoutPostsInput;
+    user!: UserCreateNestedOneWithoutPostsInput;
 }

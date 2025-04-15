@@ -43,7 +43,7 @@ export class Comment {
     post?: Post;
 
     @Field(() => User, {nullable:false})
-    author?: User;
+    user?: User;
 
     @Field(() => CommentCount, {nullable:false})
     _count?: CommentCount;

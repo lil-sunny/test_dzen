@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { PostUncheckedCreateNestedManyWithoutAuthorInput } from '../post/post-unchecked-create-nested-many-without-author.input';
-import { CommentUncheckedCreateNestedManyWithoutAuthorInput } from '../comment/comment-unchecked-create-nested-many-without-author.input';
+import { PostUncheckedCreateNestedManyWithoutUserInput } from '../post/post-unchecked-create-nested-many-without-user.input';
+import { CommentUncheckedCreateNestedManyWithoutUserInput } from '../comment/comment-unchecked-create-nested-many-without-user.input';
 
 @InputType()
 export class UserUncheckedCreateInput {
@@ -25,9 +25,9 @@ export class UserUncheckedCreateInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => PostUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
-    posts?: PostUncheckedCreateNestedManyWithoutAuthorInput;
+    @Field(() => PostUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    posts?: PostUncheckedCreateNestedManyWithoutUserInput;
 
-    @Field(() => CommentUncheckedCreateNestedManyWithoutAuthorInput, {nullable:true})
-    comments?: CommentUncheckedCreateNestedManyWithoutAuthorInput;
+    @Field(() => CommentUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    comments?: CommentUncheckedCreateNestedManyWithoutUserInput;
 }

@@ -31,7 +31,7 @@ export class Post {
     updatedAt!: Date;
 
     @Field(() => User, {nullable:false})
-    author?: User;
+    user?: User;
 
     @Field(() => [Comment], {nullable:true})
     comments?: Array<Comment>;

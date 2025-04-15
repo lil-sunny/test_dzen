@@ -29,5 +29,5 @@ export class CommentUpdateWithoutPostInput {
     replies?: CommentUpdateManyWithoutReplyToNestedInput;
 
     @Field(() => UserUpdateOneRequiredWithoutCommentsNestedInput, {nullable:true})
-    author?: UserUpdateOneRequiredWithoutCommentsNestedInput;
+    user?: UserUpdateOneRequiredWithoutCommentsNestedInput;
 }

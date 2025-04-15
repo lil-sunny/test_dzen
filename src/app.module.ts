@@ -11,9 +11,14 @@ import { CommentModule } from './Admin/comment/comment.module';
 import { CommentController } from './Admin/comment/comment.controller';
 import { CommentService } from './Admin/comment/comment.service';
 
+import { PostModule } from './Admin/posts/posts.module';
+import { PostController } from './Admin/posts/posts.controller';
+import { PostService } from './Admin/posts/posts.service';
+
 @Module({
   imports: [
     CommentModule,
+    PostModule,
     AuthModule,
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
@@ -21,7 +26,13 @@ import { CommentService } from './Admin/comment/comment.service';
       sortSchema: true,
     }),
   ],
-  controllers: [AuthController, CommentController],
-  providers: [AuthService, PrismaService, JwtService, CommentService],
+  controllers: [AuthController, CommentController, PostController],
+  providers: [
+    AuthService,
+    PrismaService,
+    JwtService,
+    CommentService,
+    PostService,
+  ],
 })
 export class AppModule {}
