@@ -6,7 +6,8 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../lib/prisma/prisma.service';
-import { Request } from 'express';
+// import { Request } from 'express';
+import { GqlExecutionContext } from '@nestjs/graphql';
 
 export interface JwtPayload {
   username: string;
@@ -22,9 +23,10 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest<Request>();
-    const authHeader = request.headers.authorization;
+    const ctx = GqlExecutionContext.create(context);
+    const request = ctx.getContext().req; // Ось тут доступний request
 
+    const authHeader = request.headers?.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedException('Token is missing');
     }
@@ -42,7 +44,8 @@ export class AuthGuard implements CanActivate {
       if (!user) {
         throw new UnauthorizedException('User not found');
       }
-      request['user'] = user;
+
+      request['user'] = user; // Це можна використати в @Context() resolver'а
 
       return true;
     } catch (err) {

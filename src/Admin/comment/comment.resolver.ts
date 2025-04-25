@@ -4,7 +4,10 @@ import { CommentService, CommentInterface } from './comment.service';
 import { CommentDto } from './dto/comment.dto';
 import { CommentsReplies } from 'src/lib/models/commentsReplies.model';
 import { Comment } from '../../lib/models/comment.model';
+import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Resolver()
 export class CommentResolver {
   constructor(private commentService: CommentService) {}

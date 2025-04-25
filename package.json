@@ -30,6 +30,7 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.0.1",
     "@types/cors": "^2.8.17",
+    "@types/uuid": "^10.0.0",
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
@@ -48,7 +49,8 @@
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "sharp": "^0.34.1",
-    "type-graphql": "^2.0.0-rc.2"
+    "type-graphql": "^2.0.0-rc.2",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",

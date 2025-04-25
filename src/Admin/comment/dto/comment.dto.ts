@@ -1,5 +1,4 @@
 import { Field, InputType, Int } from '@nestjs/graphql';
-import { FileUpload, GraphQLUpload } from 'graphql-upload';
 
 @InputType()
 export class CommentDto {
@@ -14,7 +13,4 @@ export class CommentDto {
 
   @Field(() => Int, { nullable: true })
   reply_to_comment_id: number;
-
-  @Field(() => GraphQLUpload, { nullable: true })
-  file?: Promise<FileUpload>;
 }

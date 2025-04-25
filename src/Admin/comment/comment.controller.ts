@@ -5,6 +5,7 @@ import {
   UseInterceptors,
   Body,
   UseGuards,
+  // Get,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CommentService } from './comment.service';
@@ -27,14 +28,6 @@ export class CommentController {
     @UploadedFile() file: Express.Multer.File,
     @Body('commentId') commentId: number,
   ) {
-    console.log('Файл:', file);
-    console.log('commentId:', commentId);
-
-    // Приклад відповіді:
-    return {
-      message: 'Файл завантажено',
-      path: `/uploads/${file.filename}`,
-      commentId,
-    };
+    return this.commentService.validateFile(file, commentId);
   }
 }

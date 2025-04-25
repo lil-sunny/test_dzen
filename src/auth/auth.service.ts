@@ -22,13 +22,11 @@ export class AuthService {
       throw new Error('User not found');
     }
 
-    // Перевіримо пароль
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       throw new Error('Invalid password');
     }
 
-    // Генеруємо токен
     const payload = { username: user.username, sub: user.id };
     const token = this.jwtService.sign(payload);
 
