@@ -2,11 +2,11 @@ import { Query, Resolver } from '@nestjs/graphql'; //Mutation, Args
 import { Post } from 'src/lib/models/post.model';
 // import { PostDto } from './dto/post.dto';
 import { PostService } from './posts.service';
-import { AuthGuard } from '../../auth/auth.guard';
 import { UseGuards } from '@nestjs/common';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @UseGuards(AuthGuard)
-@Resolver('post')
+@Resolver()
 export class PostResolver {
   constructor(private postService: PostService) {}
 

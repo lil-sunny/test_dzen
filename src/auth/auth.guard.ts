@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../lib/prisma/prisma.service';
-// import { Request } from 'express';
+import { Request } from 'express';
 import { GqlExecutionContext } from '@nestjs/graphql';
 
 export interface JwtPayload {
@@ -24,18 +24,26 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const ctx = GqlExecutionContext.create(context);
-    const request = ctx.getContext().req; // Ось тут доступний request
+    const request: Request = ctx.getContext().req;
 
     const authHeader = request.headers?.authorization;
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedException('Token is missing');
     }
 
     const token = authHeader.replace('Bearer ', '');
+
+    const payload = this.jwtService.verify<JwtPayload>(token, {
+      secret: process.env.JWT_SECRET!,
+    });
+
+    console.log(payload);
+
     try {
-      const payload = this.jwtService.verify<JwtPayload>(token, {
-        secret: process.env.JWT_SECRET,
-      });
+      // const payload = this.jwtService.verify<JwtPayload>(token, {
+      //   secret: process.env.JWT_SECRET!,
+      // });
 
       const user = await this.prisma.user.findUnique({
         where: { id: payload.user_id },
@@ -45,7 +53,7 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException('User not found');
       }
 
-      request['user'] = user; // Це можна використати в @Context() resolver'а
+      // request['user'] = user;
 
       return true;
     } catch (err) {
