@@ -8,12 +8,25 @@ export class PostService {
   constructor(private prisma: PrismaService) {}
 
   async getPosts(): Promise<Post[]> {
-    const result = await this.prisma.post.findMany();
+    const result = await this.prisma.post.findMany({
+      include: {
+        user: true,
+      },
+    });
     return result;
   }
 
-  //   async addPost(data: PostDto): Promise<Post> {
-  //     const result = await this.prisma.post.create({ data });
-  //     return result;
-  //   }
+  async getPost(post_id: number): Promise<Post> {
+    const result = await this.prisma.post.findUnique({
+      where: {
+        id: post_id,
+      },
+    });
+
+    if (!result) {
+      throw new Error('Post does not exist');
+    }
+
+    return result;
+  }
 }

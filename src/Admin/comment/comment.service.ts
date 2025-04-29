@@ -1,7 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { PrismaService } from '../../lib/prisma/prisma.service';
 import { CommentDto } from './dto/comment.dto';
-import { FileUpload } from 'graphql-upload';
 // import { User } from 'src/lib/models/user.model';
 import { Comment } from '../../lib/models/comment.model';
 // import { FileInterceptor } from '@nestjs/platform-express';
@@ -97,10 +96,6 @@ export class CommentService {
     });
 
     return comment;
-  }
-
-  saveFile(file: FileUpload, commentId: number) {
-    console.log(file.filename, commentId);
   }
 
   generateUniqueFileName(filename: string): string {

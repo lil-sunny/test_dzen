@@ -4,15 +4,12 @@ import {
   UploadedFile,
   UseInterceptors,
   Body,
-  UseGuards,
   // Get,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CommentService } from './comment.service';
 // import { CommentDto } from './dto/comment.dto';
-import { AuthGuard } from 'src/auth/auth.guard';
 
-@UseGuards(AuthGuard)
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
