@@ -36,7 +36,9 @@ JWT_SECRET=SeCreT
 ## Генерування таблиць в БД з Prisma
 
 Щоб згенерувати архітектуру таблиці, то можна виконати наступні команди
-
+```sh
+npx prisma generate
+```
 ```sh
 npx prisma migrate dev --name init
 ```
